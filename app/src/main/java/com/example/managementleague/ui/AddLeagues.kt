@@ -19,6 +19,8 @@ import com.example.managementleague.model.repository.LeagueRepository
 import com.example.managementleague.state.LeagueAddState
 import com.example.managementleague.usecase.LeagueAddViewModel
 import com.example.managementleague.usecase.LeagueFragmentViewmodel
+import com.example.managementleague.utils.AuthManager
+import com.example.managementleague.utils.AuthRes
 import com.google.android.material.textfield.TextInputLayout
 
 
@@ -79,7 +81,8 @@ class AddLeagues : Fragment() {
     }
 
     private fun setAddresEmptyError() {
-
+        binding.tilLeagueAddres.error = "Dirección vacío"
+        binding.tieLeagueAddres.requestFocus()
     }
 
 
