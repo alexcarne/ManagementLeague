@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Management League</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_signin">Iniciar Sesión</string>
+    <string name="btn_signup">Registrarse</string>
+    <string name="tie_name">Nombre</string>
+    <string name="txt_pts">PTS</string>
+    <string name="txt_wins">V</string>
+    <string name="txt_loses">L</string>
+    <string name="tie_hint_league_name">Nombre de la Liga</string>
+    <string name="tie_league_address">Dirección</string>
+    <string name="txt_spiner">Numeró de equipos</string>
+    <string name="btn_crear_league">Crear</string>
+</resources>

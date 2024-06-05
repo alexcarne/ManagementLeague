@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.managementleague.ui.SignIn"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_signin">
+        <action
+            android:id="@+id/action_FirstFragment_to_leaguesFragment"
+            app:destination="@id/leaguesFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_signUp"
+            app:destination="@id/signUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/leaguesFragment"
+        android:name="com.example.managementleague.ui.LeaguesFragment"
+        android:label="fragment_leagues"
+        tools:layout="@layout/fragment_leagues" >
+        <action
+            android:id="@+id/action_leaguesFragment_to_addLeagues"
+            app:destination="@id/addLeagues" />
+        <action
+            android:id="@+id/action_leaguesFragment_to_teamFragment"
+            app:destination="@id/teamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp"
+        android:name="com.example.managementleague.ui.SignUp"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" />
+    <fragment
+        android:id="@+id/addLeagues"
+        android:name="com.example.managementleague.ui.AddLeagues"
+        android:label="fragment_add_leagues"
+        tools:layout="@layout/fragment_add_leagues" >
+        <action
+            android:id="@+id/action_addLeagues_to_map"
+            app:destination="@id/map" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="com.example.managementleague.ui.TeamFragment"
+        android:label="fragment_team"
+        tools:layout="@layout/fragment_team" >
+        <action
+            android:id="@+id/action_teamFragment_to_addTeam"
+            app:destination="@id/addTeam" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTeam"
+        android:name="com.example.managementleague.ui.AddTeam"
+        android:label="fragment_add_team"
+        tools:layout="@layout/fragment_add_team" />
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        />
+</navigation>
