@@ -1,5 +1,6 @@
 package com.example.managementleague.model.repository
 
+import android.provider.ContactsContract.CommonDataKinds.Email
 import com.example.managementleague.model.Database.ManagementLeagueDatabase
 import com.example.managementleague.model.entity.User
 
@@ -22,8 +23,11 @@ class UserRepository {
         fun getUser(id:Int):User{
             return ManagementLeagueDatabase.getInstance().userDao().selectUser(id)
         }
-        fun currentid():Int{
+        fun currentId():Int{
             return ManagementLeagueDatabase.getInstance().userDao().initialiceCount()
+        }
+        fun getUserByEmail(email:String):User{
+            return ManagementLeagueDatabase.getInstance().userDao().getUserByEmail(email)
         }
     }
 }

@@ -61,7 +61,7 @@ class AddLeagues : Fragment() {
             findNavController().navigate(R.id.action_addLeagues_to_map)
         }
         binding.btnCrear.setOnClickListener {
-            viewModel.validate(binding.spNumteams.selectedItem.toString().toInt(), 1)
+            viewModel.validate(binding.spNumteams.selectedItem.toString().toInt(), 1,requireContext())
         }
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {

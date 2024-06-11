@@ -18,4 +18,6 @@ interface UserDao {
     fun selectUser(id: Int): User
     @Query("SELECT max(id) FROM user")
     fun initialiceCount():Int
+    @Query("SELECT * FROM user c where c.email = :email")
+    fun getUserByEmail(email:String):User
 }

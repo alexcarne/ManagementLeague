@@ -38,7 +38,7 @@ class SignUpViewModel :ViewModel(){
                     GlobalScope.launch {
                             AuthManager(context).createUserWithEmailAndPassword(email.value!!, password.value!!)
                     }
-                    UserRepository.insertUser(User(UserRepository.currentid()+1, name.value!!,
+                    UserRepository.insertUser(User(UserRepository.currentId()+1, name.value!!,
                         email.value!!, password.value!!, phone.value!!
                     ))
                     state.value = SignUpState.Success
