@@ -81,5 +81,6 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     //GoogleMaps Dependenci
     implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
 }

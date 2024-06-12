@@ -23,4 +23,5 @@
     <string name="hint_team_name">Nombre equipo</string>
     <string name="hint_player_name">Nombre</string>
     <string name="hint_player_number">Número</string>
+    <string name="btn_guardar">Guardar</string>
 </resources>

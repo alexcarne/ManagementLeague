@@ -15,7 +15,6 @@ class LeagueAddViewModel : ViewModel() {
     var name = MutableLiveData<String>()
     var address = MutableLiveData<String>()
     private var state = MutableLiveData<LeagueAddState>()
-
     fun validate(numteams: Int, userid: Int,context:Context) {
         val user_id = UserRepository.getUserByEmail(AuthManager(context).getCurrentUser()!!.email!!).id
         when {

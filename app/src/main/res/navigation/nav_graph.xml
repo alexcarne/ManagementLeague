@@ -40,8 +40,8 @@
         android:label="fragment_add_leagues"
         tools:layout="@layout/fragment_add_leagues" >
         <action
-            android:id="@+id/action_addLeagues_to_map"
-            app:destination="@id/map" />
+            android:id="@+id/action_addLeagues_to_map2"
+            app:destination="@id/map2" />
     </fragment>
     <fragment
         android:id="@+id/teamFragment"
@@ -58,9 +58,9 @@
         android:label="fragment_add_team"
         tools:layout="@layout/fragment_add_team" />
     <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        />
+        android:id="@+id/map2"
+        android:name="com.example.managementleague.ui.Map"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+
 </navigation>

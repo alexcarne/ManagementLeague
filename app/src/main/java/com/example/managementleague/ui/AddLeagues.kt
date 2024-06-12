@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.managementleague.R
@@ -22,10 +24,12 @@ import com.example.managementleague.usecase.LeagueFragmentViewmodel
 import com.example.managementleague.utils.AuthManager
 import com.example.managementleague.utils.AuthRes
 import com.google.android.material.textfield.TextInputLayout
+import androidx.lifecycle.Observer
+import com.example.managementleague.usecase.AddressViewmodel
 
 
 class AddLeagues : Fragment() {
-
+    private val viewmodel: AddressViewmodel by activityViewModels()
     private var _binding: FragmentAddLeaguesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LeagueAddViewModel by viewModels()
@@ -57,8 +61,17 @@ class AddLeagues : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tieLeagueName.addTextChangedListener(textWatcher(binding.tilLeagueName))
         binding.tieLeagueAddres.addTextChangedListener(textWatcher(binding.tilLeagueAddres))
+
+        println(AddressViewmodel().address.value)
+        // Observe the LiveData and update the EditText when the selected location changes
+        viewmodel.address.observe(viewLifecycleOwner, Observer { address ->
+            address?.let {
+                // Update the EditText with the new address
+                binding.tieLeagueAddres.setText(it)
+            }
+        })
         binding.btnAddres.setOnClickListener {
-            findNavController().navigate(R.id.action_addLeagues_to_map)
+            findNavController().navigate(R.id.action_addLeagues_to_map2)
         }
         binding.btnCrear.setOnClickListener {
             viewModel.validate(binding.spNumteams.selectedItem.toString().toInt(), 1,requireContext())
