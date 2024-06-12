@@ -25,7 +25,9 @@ data class Team(
     val macth_lost:Int,
     val pts_score:Int,
     val pts_conceaded:Int,
-    val pts_league:Int
+    var pts_league:Int
 ) {
-
+    fun calculatePoints() {
+        pts_league = macth_wins * 3
+    }
 }

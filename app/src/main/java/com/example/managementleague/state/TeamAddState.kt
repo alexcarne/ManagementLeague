@@ -1,9 +1,11 @@
 package com.example.managementleague.state
 
 sealed class TeamAddState {
-    data object NameEmptyError : LeagueAddState()
-    data object AddresEmptyError : LeagueAddState()
+    data object TeamNameEmptyError : TeamAddState()
+    data object PlayerNameEmptyError : TeamAddState()
+    data object PlayerNumberEmptyError : TeamAddState()
+    data object PlayerNumberFormatError : TeamAddState()
 
-    data object Success : LeagueAddState()
-    data object Error : LeagueAddState()
+    data object Success : TeamAddState()
+    data object Error : TeamAddState()
 }

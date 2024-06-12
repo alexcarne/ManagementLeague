@@ -20,4 +20,7 @@
     <string name="tie_league_address">Dirección</string>
     <string name="txt_spiner">Numeró de equipos</string>
     <string name="btn_crear_league">Crear</string>
+    <string name="hint_team_name">Nombre equipo</string>
+    <string name="hint_player_name">Nombre</string>
+    <string name="hint_player_number">Número</string>
 </resources>

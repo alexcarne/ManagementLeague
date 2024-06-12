@@ -39,7 +39,9 @@ class TeamRepository {
         fun getTeamListRAW(): List<Team> {
             return ManagementLeagueDatabase.getInstance().teamDao().selectAllRAW()
         }
-
+        fun currentid():Int{
+            return ManagementLeagueDatabase.getInstance().teamDao().initialiceCount()
+        }
 
     }
 }
