@@ -1,6 +1,12 @@
 package com.example.managementleague.utils
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -9,7 +15,7 @@ import org.json.JSONObject
 import java.io.IOException
 
 class MapManager {
-    var CreatingLatLong: LatLng? = null
+
     suspend fun getLatLngFromAddress(address: String, apiKey: String): Pair<Double, Double>? {
         return withContext(Dispatchers.IO) {
             val client = OkHttpClient()
@@ -60,4 +66,8 @@ class MapManager {
             }
         }
     }
+    companion object{
+        var CurrentLocalitation:Pair<Double,Double>? = null
+    }
+
 }

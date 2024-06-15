@@ -58,9 +58,12 @@ class Map : Fragment(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val (latitud, longitud) = MapManager().getLatLngFromAddress("Calle Leonora", getString(R.string.google_maps_key)) ?: return@launch
+                var ltlo = MapManager().getLatLngFromAddress("Calle Leonora",R.string.google_maps_key.toString())!!
+                if (MapManager.CurrentLocalitation != null){
+                    ltlo = MapManager.CurrentLocalitation!!
+                }
                 // Add an initial marker in the obtained location
-                val location = LatLng(latitud, longitud)
+                val location = LatLng(ltlo.first, ltlo.second)
                 currentMarker = googleMap.addMarker(
                     MarkerOptions()
                         .position(location)

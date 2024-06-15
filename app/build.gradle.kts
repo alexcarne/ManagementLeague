@@ -54,11 +54,13 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
     //Dependencias firebase
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.firebase:firebase-database-ktx")
+
     //Dependencias room
     val room_version = "2.6.0"
 
@@ -79,6 +81,7 @@ dependencies {
 
     //Convertir un Flow a LiveData
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+
     //GoogleMaps Dependenci
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
