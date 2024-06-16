@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.managementleague.model.entity.Player
 import com.example.managementleague.model.entity.Team
+import com.example.managementleague.model.repository.LeagueRepository
 import com.example.managementleague.model.repository.PlayerRepository
 import com.example.managementleague.model.repository.TeamRepository
 import com.example.managementleague.model.repository.UserRepository
@@ -88,6 +89,9 @@ class TeamAddViewModel : ViewModel() {
                             )
                         )
                     }
+                    var league = LeagueRepository.getLeagueList(TeamRepository.currentLeagueid)
+                    league.addTeam()
+                    LeagueRepository.updateLeague(league)
                     state.value = TeamAddState.Success
                 } catch (e: Exception) {
                     state.value = TeamAddState.Error

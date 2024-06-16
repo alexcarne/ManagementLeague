@@ -24,7 +24,7 @@ data class League(
     val user_id:Int,
     @NonNull
     val maxteam:Int,
-    val currentteams:Int
+    var currentteams:Int
 
 ) : Serializable {
     fun getTeamnumber(): String {
@@ -33,5 +33,8 @@ data class League(
 
     fun getUser(): String {
         return UserRepository.getUser(user_id).name
+    }
+    fun addTeam(){
+        currentteams++
     }
 }
