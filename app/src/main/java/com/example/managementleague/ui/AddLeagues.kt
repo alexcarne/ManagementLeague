@@ -60,20 +60,20 @@ class AddLeagues : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tieLeagueName.addTextChangedListener(textWatcher(binding.tilLeagueName))
-        binding.tieLeagueAddres.addTextChangedListener(textWatcher(binding.tilLeagueAddres))
+        binding.tieLeagueAddress.addTextChangedListener(textWatcher(binding.tilLeagueAddress))
 
         println(AddressViewmodel().address.value)
         // Observe the LiveData and update the EditText when the selected location changes
         viewmodel.address.observe(viewLifecycleOwner, Observer { address ->
             address?.let {
                 // Update the EditText with the new address
-                binding.tieLeagueAddres.setText(it)
+                binding.tieLeagueAddress.setText(it)
             }
         })
-        binding.btnAddres.setOnClickListener {
+        binding.btnAddress.setOnClickListener {
             findNavController().navigate(R.id.action_addLeagues_to_map2)
         }
-        binding.btnCrear.setOnClickListener {
+        binding.btnCreate.setOnClickListener {
             viewModel.validate(binding.spNumteams.selectedItem.toString().toInt(), 1,requireContext())
         }
         viewModel.getState().observe(viewLifecycleOwner) {
@@ -94,8 +94,8 @@ class AddLeagues : Fragment() {
     }
 
     private fun setAddresEmptyError() {
-        binding.tilLeagueAddres.error = "Dirección vacío"
-        binding.tieLeagueAddres.requestFocus()
+        binding.tilLeagueAddress.error = "Dirección vacío"
+        binding.tieLeagueAddress.requestFocus()
     }
 
 

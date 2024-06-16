@@ -119,7 +119,9 @@ class MainActivity : AppCompatActivity(){
                         val latitude = location.latitude
                         val longitude = location.longitude
                         // Use latitude and longitude as needed
+                        println(Pair(latitude,longitude))
                         MapManager.CurrentLocalitation=Pair(latitude,longitude)
+                        Snackbar.make(findViewById(android.R.id.content), Pair(latitude,longitude).toString(), Snackbar.LENGTH_SHORT).show()
                     }
                 } else {
                     Snackbar.make(findViewById(android.R.id.content), "Location not found", Snackbar.LENGTH_SHORT).show()

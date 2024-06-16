@@ -46,7 +46,7 @@ class Map : Fragment(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        binding.button2.setOnClickListener {
+        binding.buttonSave.setOnClickListener {
             findNavController().popBackStack()
         }
     }
@@ -58,18 +58,24 @@ class Map : Fragment(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                var ltlo = MapManager().getLatLngFromAddress("Calle Leonora",R.string.google_maps_key.toString())!!
-                if (MapManager.CurrentLocalitation != null){
+                var ltlo: Pair<Double, Double>
+                if (MapManager.CurrentLocalitation != null) {
                     ltlo = MapManager.CurrentLocalitation!!
+                } else {
+                    ltlo = MapManager().getLatLngFromAddress(
+                        "Calle Pablo Picasso N13",
+                        com.example.managementleague.R.string.google_maps_key.toString()
+                    )!!
                 }
                 // Add an initial marker in the obtained location
                 val location = LatLng(ltlo.first, ltlo.second)
                 currentMarker = googleMap.addMarker(
                     MarkerOptions()
                         .position(location)
-                        .title("Marker in Málaga")
+                        .title("Ubicación actual")
                 )
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+                viewmodel.updateAddress(MapManager().getAddressFromLatLng(ltlo.first,ltlo.second,getString(R.string.google_maps_key)) ?: "")
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -88,15 +94,18 @@ class Map : Fragment(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
         )
 
 
-
         // Obtener instancia de ViewModel
 
 
         // Lanzar una coroutine para obtener la dirección de forma asíncrona
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                 val address = withContext(Dispatchers.IO) {
-                    MapManager().getAddressFromLatLng(latLng.latitude, latLng.longitude, getString(R.string.google_maps_key))
+                val address = withContext(Dispatchers.IO) {
+                    MapManager().getAddressFromLatLng(
+                        latLng.latitude,
+                        latLng.longitude,
+                        getString(R.string.google_maps_key)
+                    )
                 }
                 println(address)
                 viewmodel.updateAddress(address ?: "")

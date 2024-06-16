@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class TeamRepository {
     companion object {
+        var currentLeagueid = 1
         fun insertTeam(team: Team) {
             try {
                 ManagementLeagueDatabase.getInstance().teamDao().insert(team)

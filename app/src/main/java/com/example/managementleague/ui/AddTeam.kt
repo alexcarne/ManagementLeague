@@ -3,6 +3,7 @@ package com.example.managementleague.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.example.managementleague.R
 import com.example.managementleague.databinding.FragmentAddLeaguesBinding
 import com.example.managementleague.databinding.FragmentAddTeamBinding
 import com.example.managementleague.model.entity.League
+import com.example.managementleague.model.repository.TeamRepository
 import com.example.managementleague.state.TeamAddState
 import com.example.managementleague.usecase.LeagueAddViewModel
 import com.example.managementleague.usecase.TeamAddViewModel
@@ -25,7 +27,7 @@ class AddTeam : Fragment() {
     private var _binding: FragmentAddTeamBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TeamAddViewModel by viewModels()
-    lateinit var league: League
+    var league: Int = TeamRepository.currentLeagueid
     inner class textWatcher(var t: TextInputLayout) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -40,14 +42,7 @@ class AddTeam : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        parentFragmentManager.setFragmentResultListener(
-            "key",
-            this,
-            FragmentResultListener { _, result ->
-                league = result.getSerializable("league") as League
-                println(league)
-            }
-        )
+
         // Inflate the layout for this fragment
         _binding = FragmentAddTeamBinding.inflate(inflater, container, false)
         binding.viewmodel = this.viewModel
@@ -57,6 +52,7 @@ class AddTeam : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.tieTeamName.addTextChangedListener(textWatcher(binding.tilTeamName))
         binding.tiePlayername1.addTextChangedListener(textWatcher(binding.tilPlayername1))
         binding.tiePlayername2.addTextChangedListener(textWatcher(binding.tilPlayername2))
@@ -67,7 +63,9 @@ class AddTeam : Fragment() {
         binding.tiePlayernumber3.addTextChangedListener(textWatcher(binding.tilPlayernumber3))
         binding.tiePlayernumber4.addTextChangedListener(textWatcher(binding.tilPlayernumber4))
         binding.btnCreateTeam.setOnClickListener {
-            viewModel.validate(1)
+
+                viewModel.validate(league)
+
         }
         viewModel.getState().observe(viewLifecycleOwner){
             when(it){

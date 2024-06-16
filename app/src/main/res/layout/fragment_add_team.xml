@@ -1,176 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="viewmodel"
             type="com.example.managementleague.usecase.TeamAddViewModel" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.AddTeam">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.AddTeam">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_team_name">
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_team_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_playername_1"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_team_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp">
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_team_name"
+                android:text="@={viewmodel.team_name}"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_playername_1"
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_create_team"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_team_name">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Player 1 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_playername_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_player_name"
-                    android:text="@={viewmodel.player1_name}"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_playernumber_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_playername_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_player_name"
+                        android:text="@={viewmodel.player1_name}"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_playernumber_1"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_playernumber_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_player_number"
-                    android:inputType="number"
-                    android:text="@={viewmodel.player1_number}"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_playername_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_playernumber_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_player_number"
+                        android:inputType="number"
+                        android:text="@={viewmodel.player1_number}"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_playername_2"
+                <!-- Player 2 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_playername_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_player_name"
-                    android:text="@={viewmodel.player2_name}"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_playernumber_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_playername_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_player_name"
+                        android:text="@={viewmodel.player2_name}"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_playernumber_2"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_playernumber_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_player_number"
-                    android:inputType="number"
-                    android:text="@={viewmodel.player2_number}"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_playername_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_playernumber_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_player_number"
+                        android:inputType="number"
+                        android:text="@={viewmodel.player2_number}"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_playername_3"
+                <!-- Player 3 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_playername_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_player_name"
-                    android:text="@={viewmodel.player3_name}"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_playernumber_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_playername_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_player_name"
+                        android:text="@={viewmodel.player3_name}"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_playernumber_3"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_playernumber_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_player_number"
-                    android:inputType="number"
-                    android:text="@={viewmodel.player3_number}"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_playername_4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_playernumber_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_player_number"
+                        android:inputType="number"
+                        android:text="@={viewmodel.player3_number}"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_playername_4"
+                <!-- Player 4 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_playername_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_player_name"
-                    android:text="@={viewmodel.player4_name}"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_playernumber_4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_playername_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_player_name"
+                        android:text="@={viewmodel.player4_name}"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_playernumber_4"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_playernumber_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_player_number"
-                    android:inputType="number"
-                    android:text="@={viewmodel.player4_number}"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-    </ScrollView>
+                    android:layout_marginBottom="16dp">
 
-    <Button
-        android:id="@+id/btn_create_team"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_playernumber_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_player_number"
+                        android:inputType="number"
+                        android:text="@={viewmodel.player4_number}"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_team_name"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            </LinearLayout>
+        </ScrollView>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tie_team_name"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btn_create_team"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_team_name"
-            android:text="@={viewmodel.team_name}"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="Create Team"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

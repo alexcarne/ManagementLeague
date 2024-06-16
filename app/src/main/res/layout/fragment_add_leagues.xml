@@ -7,82 +7,98 @@
             name="viewmodel"
             type="com.example.managementleague.usecase.LeagueAddViewModel" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.AddLeagues">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_league_addres"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_league_name">
+        tools:context=".ui.AddLeagues">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tie_league_addres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/tie_league_address"
-            android:text="@={viewmodel.address}"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Spinner
-        android:id="@+id/sp_numteams"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:entries="@array/numequipos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_league_name"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tie_league_name"
-            android:layout_width="match_parent"
+        <!-- League Name Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_league_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/tie_hint_league_name"
-            android:text="@={viewmodel.name}"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/txt_spiner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_league_addres" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_league_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.name}"
+                 />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageButton
-        android:id="@+id/btn_addres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_edit_location_alt_24"
-        app:layout_constraintBottom_toBottomOf="@+id/til_league_addres"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/til_league_addres" />
+        <!-- League Address Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_league_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/tie_league_address"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_league_name">
 
-    <Button
-        android:id="@+id/btn_crear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:text="@string/btn_crear_league"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sp_numteams" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_league_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.address}"
+                 />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Label for Number of Teams -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Número de equipos"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_league_address" />
+
+        <!-- Spinner for Number of Teams -->
+        <Spinner
+            android:id="@+id/sp_numteams"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:entries="@array/numequipos"
+            android:background="@drawable/spinner_background"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <!-- ImageButton for Address -->
+        <ImageButton
+            android:id="@+id/btn_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/baseline_edit_location_alt_24"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_league_address" />
+
+        <!-- Button to Create League -->
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/btn_crear_league"
+            android:textColor="@android:color/white"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_numteams" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

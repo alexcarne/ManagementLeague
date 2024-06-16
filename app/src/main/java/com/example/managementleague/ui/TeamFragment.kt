@@ -49,22 +49,23 @@ class TeamFragment : Fragment() {
             this,
             FragmentResultListener { _, result ->
                 league = result.getSerializable("league") as League
+                TeamRepository.currentLeagueid= league.id
                 allteams = initialTeams()
                 observeTeams()
             }
         )
-        binding.floatingActionButton.setOnClickListener {
-            var bundle = Bundle().apply {
-                putSerializable("league",league)
-            }
-            parentFragmentManager.setFragmentResult("key",bundle)
-            findNavController().navigate(R.id.action_teamFragment_to_addTeam)
-        }
         adapter = TeamAdapter { t: Team ->
             TeamRepository.deleteTeam(t)
             adapter.notifyChanged()
         }
         binding.listTeam.adapter = adapter
+        binding.floatingActionButton.setOnClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("league", league)
+            }
+            parentFragmentManager.setFragmentResult("key", bundle)
+            findNavController().navigate(R.id.action_teamFragment_to_addTeam)
+        }
     }
 
     private fun observeTeams() {
