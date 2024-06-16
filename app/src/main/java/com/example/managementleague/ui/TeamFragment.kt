@@ -44,6 +44,13 @@ class TeamFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.bottomNavigation.setOnNavigationItemReselectedListener {item->
+            when(item.itemId){
+                R.id.navigation_dashboard->{
+                    findNavController().navigate(R.id.action_teamFragment_to_mapLeagueFragment)
+                }
+            }
+        }
         parentFragmentManager.setFragmentResultListener(
             "key",
             this,

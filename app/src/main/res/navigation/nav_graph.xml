@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_teamFragment_to_addTeam"
             app:destination="@id/addTeam" />
+        <action
+            android:id="@+id/action_teamFragment_to_mapLeagueFragment"
+            app:destination="@id/mapLeagueFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTeam"
@@ -62,5 +65,10 @@
         android:name="com.example.managementleague.ui.Map"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/mapLeagueFragment"
+        android:name="com.example.managementleague.ui.MapLeagueFragment"
+        android:label="fragment_map_league"
+        tools:layout="@layout/fragment_map_league" />
 
 </navigation>

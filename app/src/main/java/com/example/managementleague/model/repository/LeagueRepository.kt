@@ -36,6 +36,9 @@ class LeagueRepository {
         fun getLeagueList(): Flow<List<League>> {
             return ManagementLeagueDatabase.getInstance().leagueDao().selectAll()
         }
+        fun getLeagueList(id:Int): League {
+            return ManagementLeagueDatabase.getInstance().leagueDao().getLeaguefromId(id)
+        }
         fun getLeagueListRAW(): List<League> {
             return ManagementLeagueDatabase.getInstance().leagueDao().selectAllRAW()
         }

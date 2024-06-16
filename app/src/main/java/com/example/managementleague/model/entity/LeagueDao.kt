@@ -18,6 +18,9 @@ interface LeagueDao {
     fun delete(league: League)
     @Query("SELECT * FROM League")
     fun selectAll(): Flow<List<League>>
+    @Query("SELECT * FROM League where id =:id")
+    fun getLeaguefromId(id:Int): League
+
     @Query("SELECT * FROM League")
     fun selectAllRAW(): List<League>
     @Query("SELECT max(id) FROM League")
