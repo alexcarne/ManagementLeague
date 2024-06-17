@@ -80,7 +80,7 @@ class AddTeam : Fragment() {
     }
 
     private fun setSucces() {
-        findNavController().navigate(R.id.leaguesFragment)
+        findNavController().popBackStack()
     }
 
     private fun setPlayerNumberFormatError() {

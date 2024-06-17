@@ -24,9 +24,6 @@ class TeamFragment : Fragment() {
     lateinit var adapter: TeamAdapter
     private lateinit var allteams: LiveData<List<Team>>
     lateinit var league: League
-    private fun initialTeams(): LiveData<List<Team>> {
-        return TeamRepository.getTeamList(league.id).asLiveData()
-    }
 
     private val viewModel: TeamFragmentViewmodel by viewModels()
     private val binding get() = _binding!!
@@ -39,33 +36,42 @@ class TeamFragment : Fragment() {
         binding.listTeam.layoutManager = LinearLayoutManager(context)
         binding.viewmodel = this.viewModel
         binding.lifecycleOwner = this
+
+        // Setup adapter
+        adapter = TeamAdapter { team: Team ->
+            TeamRepository.deleteTeam(team)
+            adapter.notifyDataSetChanged()  // This should be notifyDataSetChanged(), not notifyChanged()
+        }
+        binding.listTeam.adapter = adapter
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.bottomNavigation.setOnNavigationItemReselectedListener {item->
-            when(item.itemId){
-                R.id.navigation_dashboard->{
+
+        // Setup navigation listener
+        binding.bottomNavigation.setOnNavigationItemReselectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_dashboard -> {
                     findNavController().navigate(R.id.action_teamFragment_to_mapLeagueFragment)
                 }
             }
         }
+
+        // Fragment result listener to receive league object
         parentFragmentManager.setFragmentResultListener(
             "key",
             this,
             FragmentResultListener { _, result ->
                 league = result.getSerializable("league") as League
-                TeamRepository.currentLeagueid= league.id
+                TeamRepository.currentLeagueid = league.id
                 allteams = initialTeams()
                 observeTeams()
             }
         )
-        adapter = TeamAdapter { t: Team ->
-            TeamRepository.deleteTeam(t)
-            adapter.notifyChanged()
-        }
-        binding.listTeam.adapter = adapter
+
+        // Floating action button listener
         binding.floatingActionButton.setOnClickListener {
             val bundle = Bundle().apply {
                 putSerializable("league", league)
@@ -75,14 +81,27 @@ class TeamFragment : Fragment() {
         }
     }
 
+    // Method to observe teams LiveData
     private fun observeTeams() {
         allteams.observe(viewLifecycleOwner) {
-            it.let { adapter.submitList(it) }
+            adapter.submitList(it)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (this::league.isInitialized) {
+            allteams = initialTeams()
+            observeTeams()
+        }
+    }
+
+    private fun initialTeams(): LiveData<List<Team>> {
+        return TeamRepository.getTeamList(league.id).asLiveData()
     }
 }
