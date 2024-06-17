@@ -1,33 +1,35 @@
 package com.example.managementleague.ui
 
+
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.example.managementleague.R
 import com.example.managementleague.databinding.ActivityMainBinding
+import com.example.managementleague.utils.AuthManager
 import com.example.managementleague.utils.MapManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseUser
 
-class MainActivity : AppCompatActivity(){
+
+class MainActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -64,15 +66,29 @@ class MainActivity : AppCompatActivity(){
     }
 
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> true
+
+            R.id.action_logout -> {
+                val user: FirebaseUser? = AuthManager(baseContext).getCurrentUser()
+                if (user != null) {
+                    AuthManager(baseContext).signOut()
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.FirstFragment)
+                } else {
+                    // Muestra un Snackbar indicando que el usuario no ha iniciado sesión
+                    Snackbar.make(findViewById(android.R.id.content), "Usuario no ha iniciado sesión", Snackbar.LENGTH_LONG).show()
+                }
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -84,32 +100,54 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun checkLocationPermissions(): Boolean {
-        val fineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-        val coarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+        val fineLocationPermission =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        val coarseLocationPermission =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
         return fineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 coarseLocationPermission == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestLocationPermissions() {
-        ActivityCompat.requestPermissions(this,
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
-            LOCATION_PERMISSION_REQUEST_CODE)
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 getLastKnownLocation()
             } else {
-                Snackbar.make(findViewById(android.R.id.content), "Location permission denied", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Location permission denied",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
     private fun getLastKnownLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
 
             val locationResult: Task<Location> = fusedLocationClient.lastLocation
             locationResult.addOnCompleteListener { task ->
@@ -119,12 +157,20 @@ class MainActivity : AppCompatActivity(){
                         val latitude = location.latitude
                         val longitude = location.longitude
                         // Use latitude and longitude as needed
-                        println(Pair(latitude,longitude))
-                        MapManager.CurrentLocalitation=Pair(latitude,longitude)
-                        Snackbar.make(findViewById(android.R.id.content), Pair(latitude,longitude).toString(), Snackbar.LENGTH_SHORT).show()
+                        println(Pair(latitude, longitude))
+                        MapManager.CurrentLocalitation = Pair(latitude, longitude)
+                        Snackbar.make(
+                            findViewById(android.R.id.content),
+                            Pair(latitude, longitude).toString(),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 } else {
-                    Snackbar.make(findViewById(android.R.id.content), "Location not found", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        "Location not found",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
