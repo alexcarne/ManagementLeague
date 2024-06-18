@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
                     AuthManager(baseContext).signOut()
                     findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.FirstFragment)
                 } else {
-                    // Muestra un Snackbar indicando que el usuario no ha iniciado sesión
                     Snackbar.make(findViewById(android.R.id.content), "Active la ubicación para obtener su ubicación", Snackbar.LENGTH_LONG).show()
                 }
                 true

@@ -16,7 +16,7 @@ interface TeamDao {
     fun update (team: Team)
     @Delete
     fun delete(team: Team)
-    @Query("SELECT * FROM team where id_league = :id")
+    @Query("SELECT * FROM team where id_league = :id order by macth_wins")
     fun selectAll(id:Int): Flow<List<Team>>
     @Query("SELECT * FROM team")
     fun selectAllRAW(): List<Team>
