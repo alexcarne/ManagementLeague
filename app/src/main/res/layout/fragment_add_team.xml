@@ -18,33 +18,40 @@
             android:id="@+id/til_team_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_margin="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tie_team_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_team_name"
-                android:text="@={viewmodel.team_name}"
                 android:inputType="text"
-                />
+                android:text="@={viewmodel.team_name}" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="JUGADORES"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/til_team_name"
+            app:layout_constraintTop_toBottomOf="@+id/til_team_name" />
 
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_create_team"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_team_name">
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,10 +59,18 @@
                 android:orientation="vertical">
 
                 <!-- Player 1 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Jugador 1"
+                    android:textSize="18sp" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_playername_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginBottom="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -63,14 +78,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_player_name"
-                        android:text="@={viewmodel.player1_name}"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        android:text="@={viewmodel.player1_name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_playernumber_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginBottom="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -79,14 +95,22 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_player_number"
                         android:inputType="number"
-                        android:text="@={viewmodel.player1_number}"/>
+                        android:text="@={viewmodel.player1_number}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Player 2 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Jugador 2"
+                    android:textSize="18sp" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_playername_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginBottom="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -94,14 +118,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_player_name"
-                        android:text="@={viewmodel.player2_name}"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        android:text="@={viewmodel.player2_name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_playernumber_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginBottom="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -110,14 +135,22 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_player_number"
                         android:inputType="number"
-                        android:text="@={viewmodel.player2_number}"/>
+                        android:text="@={viewmodel.player2_number}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Player 3 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Jugador 3"
+                    android:textSize="18sp" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_playername_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginBottom="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -125,14 +158,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_player_name"
-                        android:text="@={viewmodel.player3_name}"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        android:text="@={viewmodel.player3_name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_playernumber_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginBottom="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -141,14 +175,22 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_player_number"
                         android:inputType="number"
-                        android:text="@={viewmodel.player3_number}"/>
+                        android:text="@={viewmodel.player3_number}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Player 4 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Jugador 4"
+                    android:textSize="18sp" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_playername_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginBottom="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -156,14 +198,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_player_name"
-                        android:text="@={viewmodel.player4_name}"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        android:text="@={viewmodel.player4_name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_playernumber_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:layout_marginBottom="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -172,7 +215,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_player_number"
                         android:inputType="number"
-                        android:text="@={viewmodel.player4_number}"/>
+                        android:text="@={viewmodel.player4_number}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -183,9 +226,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create Team"
+            android:backgroundTint="@color/md_blue_500"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

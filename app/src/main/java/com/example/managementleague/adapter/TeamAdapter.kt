@@ -17,13 +17,12 @@ class TeamAdapter(
                 txtTeamName.text = team.name
                 txtLoses.text = team.macth_lost.toString()
                 txtWins.text = team.macth_wins.toString()
-                txtPtsLeague.text =team.pts_league.toString()
+                txtPtsLeague.text = team.pts_league.toString()
                 itemTeam.setOnLongClickListener {
                     onDelete(team)
                     true
                 }
             }
-
         }
     }
 
