@@ -60,7 +60,7 @@ class TeamAddViewModel : ViewModel() {
                     TeamRepository.insertTeam(
                         Team(
                             team_id,
-                            team_name.value!!, leagueid, 0, 0, 0, 0, 0
+                            team_name.value!!, leagueid, 0, 0,
                         )
                     )
                     PlayerRepository.insertPlayer(

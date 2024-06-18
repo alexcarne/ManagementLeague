@@ -130,6 +130,7 @@
                 android:id="@+id/tie_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:text="@={viewModel.password}"
                 android:textColor="@color/md_grey_900" />
         </com.google.android.material.textfield.TextInputLayout>

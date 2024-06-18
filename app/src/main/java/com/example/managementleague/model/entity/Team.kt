@@ -21,13 +21,17 @@ data class Team(
     @NonNull
     val name: String,
     val id_league: Int,
-    val macth_wins:Int,
-    val macth_lost:Int,
-    val pts_score:Int,
-    val pts_conceaded:Int,
-    var pts_league:Int
+    var macth_wins:Int,
+    var macth_lost:Int,
 ) {
-    fun calculatePoints() {
-        pts_league = macth_wins * 3
+    fun calculateTotalMaches():Int {
+       return macth_lost+macth_wins
     }
+    fun addmacthwins(){
+        macth_wins++
+    }
+    fun addmactlosr(){
+        macth_lost++
+    }
+
 }

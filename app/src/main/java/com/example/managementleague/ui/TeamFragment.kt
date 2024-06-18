@@ -39,6 +39,8 @@ class TeamFragment : Fragment() {
         // Setup adapter
         adapter = TeamAdapter { team: Team ->
             TeamRepository.deleteTeam(team)
+            league.minusTeam()
+            LeagueRepository.updateLeague(league)
             adapter.notifyDataSetChanged()  // This should be notifyDataSetChanged(), not notifyChanged()
         }
         binding.listTeam.adapter = adapter

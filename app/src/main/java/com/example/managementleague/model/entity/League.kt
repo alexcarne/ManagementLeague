@@ -37,4 +37,8 @@ data class League(
     fun addTeam(){
         currentteams++
     }
+
+    fun minusTeam() {
+        currentteams--
+    }
 }

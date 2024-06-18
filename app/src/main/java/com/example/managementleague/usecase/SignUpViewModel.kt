@@ -29,7 +29,7 @@ class SignUpViewModel :ViewModel(){
             ValidarEmail(email.value) -> state.value = SignUpState.EmailFormatError
             TextUtils.isEmpty(password.value) -> state.value = SignUpState.PasswordEmptyError
             password.value!!.length<6 -> state.value = SignUpState.PasswordLengthError
-            //ValidarPassword(password.value) -> state.value = SignUpState.PasswordFormatError
+            ValidarPassword(password.value) -> state.value = SignUpState.PasswordFormatError
             TextUtils.isEmpty(phone.value.toString()) -> state.value = SignUpState.PhoneEmptyError
             phone.value.toString().length!=9 -> state.value = SignUpState.PhoneFormatError
 
@@ -66,7 +66,7 @@ class SignUpViewModel :ViewModel(){
     //No funciona todavia mirar Expresión regular
     fun ValidarPassword(password: String?): Boolean {
         // Expresión regular para la validación de la contraseña
-        val regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{7,}$".toRegex()
+        val regex = "^(?=.*[a-z])(?=.*[A-Z]).{6,}\$".toRegex()
         return regex.matches(password!!)
     }
 
