@@ -13,6 +13,7 @@ import com.example.managementleague.adapter.LeagueAdapter
 import com.example.managementleague.databinding.FragmentLeaguesBinding
 import com.example.managementleague.model.entity.League
 import com.example.managementleague.model.repository.LeagueRepository
+import com.example.managementleague.model.repository.TeamRepository
 import com.example.managementleague.usecase.LeagueFragmentViewmodel
 
 class LeaguesFragment : Fragment() {
@@ -46,6 +47,7 @@ class LeaguesFragment : Fragment() {
             parentFragmentManager.setFragmentResult("key",bundle)
             findNavController().navigate(R.id.action_leaguesFragment_to_teamFragment)
         }) { l: League ->
+            TeamRepository.deleteTeams(l.id)
             LeagueRepository.deleteLeague(l)
             adapter.notifyChanged()
         }

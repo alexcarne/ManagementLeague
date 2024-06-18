@@ -22,4 +22,6 @@ interface TeamDao {
     fun selectAllRAW(): List<Team>
     @Query("SELECT max(id) FROM team")
     fun initialiceCount():Int
+    @Query("DELETE FROM team where id_league= :id ")
+    fun deleteTeams(id:Int)
 }

@@ -103,4 +103,8 @@ class AddLeagues : Fragment() {
         Toast.makeText(requireContext(), "Error al crear Liga", Toast.LENGTH_LONG).show()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewmodel.updateAddress("")
+    }
 }

@@ -43,6 +43,13 @@ class TeamRepository {
         fun currentid():Int{
             return ManagementLeagueDatabase.getInstance().teamDao().initialiceCount()
         }
+        fun deleteTeams(id:Int){
+            try {
+                ManagementLeagueDatabase.getInstance().teamDao().deleteTeams(id)
+            } catch (e: Exception) {
+                Resources.Error(e)
+            }
+        }
 
     }
 }
