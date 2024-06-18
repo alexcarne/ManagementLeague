@@ -1,10 +1,8 @@
 package com.example.managementleague.ui
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
@@ -16,6 +14,7 @@ import com.example.managementleague.adapter.TeamAdapter
 import com.example.managementleague.databinding.FragmentTeamBinding
 import com.example.managementleague.model.entity.League
 import com.example.managementleague.model.entity.Team
+import com.example.managementleague.model.repository.LeagueRepository
 import com.example.managementleague.model.repository.TeamRepository
 import com.example.managementleague.usecase.TeamFragmentViewmodel
 
@@ -43,7 +42,7 @@ class TeamFragment : Fragment() {
             adapter.notifyDataSetChanged()  // This should be notifyDataSetChanged(), not notifyChanged()
         }
         binding.listTeam.adapter = adapter
-
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -66,6 +65,7 @@ class TeamFragment : Fragment() {
             FragmentResultListener { _, result ->
                 league = result.getSerializable("league") as League
                 TeamRepository.currentLeagueid = league.id
+                LeagueRepository.league=league
                 allteams = initialTeams()
                 observeTeams()
             }
@@ -88,8 +88,25 @@ class TeamFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_team, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_edit -> {
+                findNavController().navigate(R.id.action_teamFragment_to_addLeagues)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        TeamRepository.currentLeagueid = league.id
+        LeagueRepository.league=null
         _binding = null
     }
 

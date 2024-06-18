@@ -69,6 +69,8 @@ abstract class ManagementLeagueDatabase : RoomDatabase() {
         private fun populateDatabase() {
             getInstance().let { managementLeagueDatabase ->
                 managementLeagueDatabase.userDao().insert(User(1,"Alex","carnerotapiaalex@gmail.com","000000","682027895"))
+                managementLeagueDatabase.leagueDao().insert(League(1,"Hola","Calle Leonoraa",1,5,1))
+                managementLeagueDatabase.teamDao().insert(Team(1,"Candys",1,0,0,0,0,0))
             }
         }
 

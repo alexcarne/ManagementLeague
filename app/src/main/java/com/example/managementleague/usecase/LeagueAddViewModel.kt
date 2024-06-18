@@ -15,18 +15,21 @@ class LeagueAddViewModel : ViewModel() {
     var name = MutableLiveData<String>()
     var address = MutableLiveData<String>()
     private var state = MutableLiveData<LeagueAddState>()
-    fun validate(numteams: Int, userid: Int,context:Context) {
+    fun validate(numteams: Int, userid: Int, context: Context, editar: Boolean,league: League) {
         val user_id = UserRepository.getUserByEmail(AuthManager(context).getCurrentUser()!!.email!!).id
         when {
             TextUtils.isEmpty(name.value) -> state.value = LeagueAddState.NameEmptyError
             TextUtils.isEmpty(address.value) -> state.value = LeagueAddState.AddresEmptyError
             else -> {
                 try {
-                    LeagueRepository.insertLeague(
-                        League(
-                            LeagueRepository.currentid()+1, name.value!!, address.value!!, user_id, numteams, 0
+                    when(editar){
+                        false->LeagueRepository.insertLeague(
+                            League(
+                                LeagueRepository.currentid()+1, name.value!!, address.value!!, user_id, numteams, 0
+                            )
                         )
-                    )
+                        true->LeagueRepository.updateLeague(League(league.id, name.value!!,address.value!!, user_id, numteams, league.currentteams))
+                    }
                     state.value = LeagueAddState.Success
                 } catch (e: Exception) {
                     state.value = LeagueAddState.Error

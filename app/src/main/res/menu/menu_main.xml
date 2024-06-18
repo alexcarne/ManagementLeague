@@ -9,7 +9,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:title="Log Out"
         app:showAsAction="never" />
 

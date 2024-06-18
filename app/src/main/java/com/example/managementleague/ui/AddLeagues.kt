@@ -2,46 +2,40 @@ package com.example.managementleague.ui
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.managementleague.R
-import com.example.managementleague.adapter.LeagueAdapter
 import com.example.managementleague.databinding.FragmentAddLeaguesBinding
-import com.example.managementleague.databinding.FragmentLeaguesBinding
 import com.example.managementleague.model.entity.League
 import com.example.managementleague.model.repository.LeagueRepository
 import com.example.managementleague.state.LeagueAddState
-import com.example.managementleague.usecase.LeagueAddViewModel
-import com.example.managementleague.usecase.LeagueFragmentViewmodel
-import com.example.managementleague.utils.AuthManager
-import com.example.managementleague.utils.AuthRes
-import com.google.android.material.textfield.TextInputLayout
-import androidx.lifecycle.Observer
 import com.example.managementleague.usecase.AddressViewmodel
-
+import com.example.managementleague.usecase.LeagueAddViewModel
+import com.google.android.material.textfield.TextInputLayout
 
 class AddLeagues : Fragment() {
     private val viewmodel: AddressViewmodel by activityViewModels()
     private var _binding: FragmentAddLeaguesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LeagueAddViewModel by viewModels()
+    private var editar: Boolean = false
+    lateinit var league:League
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-    inner class textWatcher(var t: TextInputLayout) : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        }
 
-        override fun afterTextChanged(s: Editable) {
+    inner class TextWatcher(var t: TextInputLayout) : android.text.TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        override fun afterTextChanged(s: Editable?) {
             t.isErrorEnabled = false
         }
     }
@@ -50,7 +44,6 @@ class AddLeagues : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentAddLeaguesBinding.inflate(inflater, container, false)
         binding.viewmodel = this.viewModel
         binding.lifecycleOwner = this
@@ -59,8 +52,16 @@ class AddLeagues : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tieLeagueName.addTextChangedListener(textWatcher(binding.tilLeagueName))
-        binding.tieLeagueAddress.addTextChangedListener(textWatcher(binding.tilLeagueAddress))
+        binding.tieLeagueName.addTextChangedListener(TextWatcher(binding.tilLeagueName))
+        binding.tieLeagueAddress.addTextChangedListener(TextWatcher(binding.tilLeagueAddress))
+        if (LeagueRepository.league != null) {
+            println(LeagueRepository.league)
+            viewmodel.updateAddress(LeagueRepository.league!!.address)
+            viewModel.name.value = LeagueRepository.league!!.name
+            binding.btnCreate.text = "Editar"
+            league= LeagueRepository.league!!
+            editar = true
+        }
 
         println(AddressViewmodel().address.value)
         // Observe the LiveData and update the EditText when the selected location changes
@@ -70,19 +71,25 @@ class AddLeagues : Fragment() {
                 binding.tieLeagueAddress.setText(it)
             }
         })
+
         binding.btnAddress.setOnClickListener {
             findNavController().navigate(R.id.action_addLeagues_to_map2)
         }
+
         binding.btnCreate.setOnClickListener {
-            viewModel.validate(binding.spNumteams.selectedItem.toString().toInt(), 1,requireContext())
+            viewModel.validate(
+                binding.spNumteams.selectedItem.toString().toInt(), 1, requireContext(), editar,
+                league
+            )
         }
+
         viewModel.getState().observe(viewLifecycleOwner) {
             when (it) {
                 LeagueAddState.NameEmptyError -> setNameEmptyError()
                 LeagueAddState.AddresEmptyError -> setAddresEmptyError()
                 LeagueAddState.Error -> setError()
                 else -> {
-                    findNavController().popBackStack()
+                    findNavController().navigate(R.id.leaguesFragment)
                 }
             }
         }
@@ -97,7 +104,6 @@ class AddLeagues : Fragment() {
         binding.tilLeagueAddress.error = "Dirección vacío"
         binding.tieLeagueAddress.requestFocus()
     }
-
 
     private fun setError() {
         Toast.makeText(requireContext(), "Error al crear Liga", Toast.LENGTH_LONG).show()
