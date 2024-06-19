@@ -74,7 +74,7 @@ class AddTeam : Fragment() {
         binding.tiePlayernumber4.addTextChangedListener(textWatcher(binding.tilPlayernumber4))
 
         binding.btnCreateTeam.setOnClickListener {
-            viewModel.validate(league)
+            viewModel.validate(league,requireContext())
         }
 
         viewModel.getState().observe(viewLifecycleOwner) {

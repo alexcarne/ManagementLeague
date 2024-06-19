@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.managementleague.ui.SignIn"
-        android:label="@string/first_fragment_label"
+        android:label="Inicio de Sesión"
         tools:layout="@layout/fragment_signin">
         <action
             android:id="@+id/action_FirstFragment_to_leaguesFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/leaguesFragment"
         android:name="com.example.managementleague.ui.LeaguesFragment"
-        android:label="fragment_leagues"
+        android:label="Ligas"
         tools:layout="@layout/fragment_leagues" >
         <action
             android:id="@+id/action_leaguesFragment_to_addLeagues"
@@ -32,12 +32,12 @@
     <fragment
         android:id="@+id/signUp"
         android:name="com.example.managementleague.ui.SignUp"
-        android:label="fragment_signup"
+        android:label="Registrarse"
         tools:layout="@layout/fragment_signup" />
     <fragment
         android:id="@+id/addLeagues"
         android:name="com.example.managementleague.ui.AddLeagues"
-        android:label="fragment_add_leagues"
+        android:label="Creación de ligas"
         tools:layout="@layout/fragment_add_leagues" >
         <action
             android:id="@+id/action_addLeagues_to_map2"
@@ -46,7 +46,7 @@
     <fragment
         android:id="@+id/teamFragment"
         android:name="com.example.managementleague.ui.TeamFragment"
-        android:label="fragment_team"
+        android:label="Equipos"
         tools:layout="@layout/fragment_team" >
         <action
             android:id="@+id/action_teamFragment_to_addTeam"
@@ -61,17 +61,17 @@
     <fragment
         android:id="@+id/addTeam"
         android:name="com.example.managementleague.ui.AddTeam"
-        android:label="fragment_add_team"
+        android:label="Creación de Equipos"
         tools:layout="@layout/fragment_add_team" />
     <fragment
         android:id="@+id/map2"
         android:name="com.example.managementleague.ui.Map"
-        android:label="fragment_map"
+        android:label="Mapa"
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/mapLeagueFragment"
         android:name="com.example.managementleague.ui.MapLeagueFragment"
-        android:label="fragment_map_league"
+        android:label="Mapa"
         tools:layout="@layout/fragment_map_league" />
 
 </navigation>

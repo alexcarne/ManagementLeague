@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,9 @@ import com.example.managementleague.databinding.FragmentLeaguesBinding
 import com.example.managementleague.model.entity.League
 import com.example.managementleague.model.repository.LeagueRepository
 import com.example.managementleague.model.repository.TeamRepository
+import com.example.managementleague.model.repository.UserRepository
 import com.example.managementleague.usecase.LeagueFragmentViewmodel
+import com.example.managementleague.utils.AuthManager
 
 class LeaguesFragment : Fragment() {
 
@@ -42,14 +45,12 @@ class LeaguesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = LeagueAdapter({ l: League ->
             var bundle = Bundle().apply {
-                putSerializable("league",l)
+                putSerializable("league", l)
             }
-            parentFragmentManager.setFragmentResult("key",bundle)
+            parentFragmentManager.setFragmentResult("key", bundle)
             findNavController().navigate(R.id.action_leaguesFragment_to_teamFragment)
         }) { l: League ->
-            TeamRepository.deleteTeams(l.id)
-            LeagueRepository.deleteLeague(l)
-            adapter.notifyChanged()
+            showDeleteConfirmationDialog(l)
         }
         binding.listLeagues.adapter = adapter
         viewModel.allleagues.observe(viewLifecycleOwner) {
@@ -59,4 +60,30 @@ class LeaguesFragment : Fragment() {
             findNavController().navigate(R.id.action_leaguesFragment_to_addLeagues)
         }
     }
+
+    private fun showDeleteConfirmationDialog(league: League) {
+
+        val builder = AlertDialog.Builder(requireContext())
+        if (league.user_id != UserRepository.getUserByEmail(AuthManager(requireContext()).getCurrentUser()!!.email!!).id) {
+            builder.setTitle("No puede borrar una liga que no a creado")
+            builder.setNegativeButton("Ok", null)
+        } else {
+            builder.setTitle("¿Deseas eliminar este Liga?")
+            builder.setPositiveButton("Eliminar") { _, _ ->
+                TeamRepository.deleteTeams(league.id)
+                Thread.sleep(1000)
+                LeagueRepository.deleteLeague(league)
+                adapter.notifyChanged()
+            }
+            builder.setNegativeButton("Cancel", null)
+        }
+
+
+
+
+
+
+        builder.show()
+    }
+
 }

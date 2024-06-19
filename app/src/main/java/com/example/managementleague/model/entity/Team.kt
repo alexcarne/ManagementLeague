@@ -20,6 +20,7 @@ data class Team(
     val id: Int,
     @NonNull
     val name: String,
+    val user_id:Int,
     val id_league: Int,
     var macth_wins:Int,
     var macth_lost:Int,

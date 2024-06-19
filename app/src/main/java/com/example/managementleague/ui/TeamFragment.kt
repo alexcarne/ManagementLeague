@@ -2,6 +2,7 @@ package com.example.managementleague.ui
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
@@ -16,7 +17,9 @@ import com.example.managementleague.model.entity.League
 import com.example.managementleague.model.entity.Team
 import com.example.managementleague.model.repository.LeagueRepository
 import com.example.managementleague.model.repository.TeamRepository
+import com.example.managementleague.model.repository.UserRepository
 import com.example.managementleague.usecase.TeamFragmentViewmodel
+import com.example.managementleague.utils.AuthManager
 
 class TeamFragment : Fragment() {
     private var _binding: FragmentTeamBinding? = null
@@ -26,6 +29,7 @@ class TeamFragment : Fragment() {
 
     private val viewModel: TeamFragmentViewmodel by viewModels()
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,12 +41,21 @@ class TeamFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Setup adapter
-        adapter = TeamAdapter { team: Team ->
-            TeamRepository.deleteTeam(team)
-            league.minusTeam()
-            LeagueRepository.updateLeague(league)
-            adapter.notifyDataSetChanged()  // This should be notifyDataSetChanged(), not notifyChanged()
-        }
+        adapter = TeamAdapter({ team: Team ->
+            showDeleteConfirmationDialog(team)
+        }, { team: Team ->
+            if (league.user_id == UserRepository.getUserByEmail(AuthManager(requireContext()).getCurrentUser()!!.email!!).id) {
+                team.addmacthwins()
+                TeamRepository.updateTeam(team)
+                adapter.notifyChanged()
+            }
+        }, { team: Team ->
+            if (league.user_id == UserRepository.getUserByEmail(AuthManager(requireContext()).getCurrentUser()!!.email!!).id) {
+                team.addmactlosr()
+                TeamRepository.updateTeam(team)
+                adapter.notifyChanged()
+            }
+        })
         binding.listTeam.adapter = adapter
         setHasOptionsMenu(true)
         return binding.root
@@ -67,7 +80,7 @@ class TeamFragment : Fragment() {
             FragmentResultListener { _, result ->
                 league = result.getSerializable("league") as League
                 TeamRepository.currentLeagueid = league.id
-                LeagueRepository.league=league
+                LeagueRepository.league = league
                 allteams = initialTeams()
                 observeTeams()
             }
@@ -101,6 +114,7 @@ class TeamFragment : Fragment() {
                 findNavController().navigate(R.id.action_teamFragment_to_addLeagues)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -108,7 +122,7 @@ class TeamFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         TeamRepository.currentLeagueid = league.id
-        LeagueRepository.league=null
+        LeagueRepository.league = null
         _binding = null
     }
 
@@ -122,5 +136,39 @@ class TeamFragment : Fragment() {
 
     private fun initialTeams(): LiveData<List<Team>> {
         return TeamRepository.getTeamList(league.id).asLiveData()
+    }
+
+    private fun showDeleteConfirmationDialog(team: Team) {
+
+        val builder = AlertDialog.Builder(requireContext())
+        if (league.user_id == UserRepository.getUserByEmail(AuthManager(requireContext()).getCurrentUser()!!.email!!).id) {
+            builder.setTitle("¿Deseas eliminar este Equipo?")
+            builder.setPositiveButton("Eliminar") { _, _ ->
+                TeamRepository.deleteTeam(team)
+                league.minusTeam()
+                LeagueRepository.updateLeague(league)
+                adapter.notifyDataSetChanged()
+            }
+            builder.setNegativeButton("Cancel", null)
+        } else if (team.user_id == UserRepository.getUserByEmail(AuthManager(requireContext()).getCurrentUser()!!.email!!).id) {
+            builder.setTitle("¿Deseas eliminar este Equipo?")
+            builder.setPositiveButton("Eliminar") { _, _ ->
+                TeamRepository.deleteTeam(team)
+                league.minusTeam()
+                LeagueRepository.updateLeague(league)
+                adapter.notifyDataSetChanged()
+            }
+            builder.setNegativeButton("Cancel", null)
+        } else {
+            builder.setTitle("No tiene permisos para eliminar este equipo")
+            builder.setNegativeButton("Ok", null)
+        }
+
+
+
+
+
+
+        builder.show()
     }
 }

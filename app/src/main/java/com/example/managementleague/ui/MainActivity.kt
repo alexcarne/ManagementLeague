@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Snackbar.make(
                         findViewById(android.R.id.content),
-                        "Location not found",
+                        "Active la ubicación para obtener su ubicación",
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }

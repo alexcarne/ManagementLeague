@@ -1,5 +1,6 @@
 package com.example.managementleague.usecase
 
+import android.content.Context
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +13,7 @@ import com.example.managementleague.model.repository.TeamRepository
 import com.example.managementleague.model.repository.UserRepository
 import com.example.managementleague.state.LeagueAddState
 import com.example.managementleague.state.TeamAddState
+import com.example.managementleague.utils.AuthManager
 
 
 class TeamAddViewModel : ViewModel() {
@@ -27,7 +29,7 @@ class TeamAddViewModel : ViewModel() {
 
     private var state = MutableLiveData<TeamAddState>()
 
-    fun validate(leagueid: Int) {
+    fun validate(leagueid: Int,context: Context) {
         when {
             TextUtils.isEmpty(team_name.value) -> state.value = TeamAddState.TeamNameEmptyError
             TextUtils.isEmpty(player1_name.value) -> state.value = TeamAddState.PlayerNameEmptyError
@@ -60,7 +62,7 @@ class TeamAddViewModel : ViewModel() {
                     TeamRepository.insertTeam(
                         Team(
                             team_id,
-                            team_name.value!!, leagueid, 0, 0,
+                            team_name.value!!, UserRepository.getUserByEmail(AuthManager(context).getCurrentUser()!!.email!!).id, leagueid, 0,0
                         )
                     )
                     PlayerRepository.insertPlayer(

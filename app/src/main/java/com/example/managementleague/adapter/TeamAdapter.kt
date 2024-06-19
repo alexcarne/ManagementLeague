@@ -11,6 +11,8 @@ import com.example.managementleague.model.repository.TeamRepository
 
 class TeamAdapter(
     private val onDelete: (Team) -> Unit,
+    private val Win:(Team)->Unit,
+    private val Lost : (Team)->Unit
 
 ) : ListAdapter<Team, TeamAdapter.TeamHost>(TEAM_COMPARATOR) {
     inner class TeamHost(var binding: ItemTeamBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -25,14 +27,11 @@ class TeamAdapter(
                     true
                 }
                 binding.imgAddWin.setOnClickListener {
-                    team.addmacthwins()
-                    TeamRepository.updateTeam(team)
-                    notifyChanged()
+
+                    Win(team)
                 }
                 binding.imgAddLost.setOnClickListener {
-                    team.addmactlosr()
-                    TeamRepository.updateTeam(team)
-                    notifyChanged()
+                    Lost(team)
                 }
             }
         }
