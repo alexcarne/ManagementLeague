@@ -26,7 +26,7 @@ class AddLeagues : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: LeagueAddViewModel by viewModels()
     private var editar: Boolean = false
-    lateinit var league:League
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +58,8 @@ class AddLeagues : Fragment() {
             println(LeagueRepository.league)
             viewmodel.updateAddress(LeagueRepository.league!!.address)
             viewModel.name.value = LeagueRepository.league!!.name
+            viewModel.league =LeagueRepository.league!!
             binding.btnCreate.text = "Editar"
-            league= LeagueRepository.league!!
             editar = true
         }
 
@@ -79,7 +79,7 @@ class AddLeagues : Fragment() {
         binding.btnCreate.setOnClickListener {
             viewModel.validate(
                 binding.spNumteams.selectedItem.toString().toInt(), 1, requireContext(), editar,
-                league
+
             )
         }
 

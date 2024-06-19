@@ -12,10 +12,11 @@ import com.example.managementleague.state.LeagueAddState
 import com.example.managementleague.utils.AuthManager
 
 class LeagueAddViewModel : ViewModel() {
+    var league: League?= null
     var name = MutableLiveData<String>()
     var address = MutableLiveData<String>()
     private var state = MutableLiveData<LeagueAddState>()
-    fun validate(numteams: Int, userid: Int, context: Context, editar: Boolean,league: League) {
+    fun validate(numteams: Int, userid: Int, context: Context, editar: Boolean) {
         val user_id = UserRepository.getUserByEmail(AuthManager(context).getCurrentUser()!!.email!!).id
         when {
             TextUtils.isEmpty(name.value) -> state.value = LeagueAddState.NameEmptyError
@@ -28,7 +29,7 @@ class LeagueAddViewModel : ViewModel() {
                                 LeagueRepository.currentid()+1, name.value!!, address.value!!, user_id, numteams, 0
                             )
                         )
-                        true->LeagueRepository.updateLeague(League(league.id, name.value!!,address.value!!, user_id, numteams, league.currentteams))
+                        true->LeagueRepository.updateLeague(League(league!!.id, name.value!!,address.value!!, user_id, numteams, league!!.currentteams))
                     }
                     state.value = LeagueAddState.Success
                 } catch (e: Exception) {
